@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<table border="2">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Age</th>
+			<th>Mobile</th>
+			<th>Game</th>
+		</tr>
+		<tr>
+				<td><input (focus)='changeIndex(1)' [value]='search'
+					(input)='sea=$event.target.value' placeholder="Search by Id"></td>
+				<td><input (focus)='changeIndex(2)' [value]='search'
+					(input)='sea=$event.target.value' placeholder="Search by Name"></td>
+				<td><input (focus)='changeIndex(3)' [value]='search'
+					(input)='sea=$event.target.value' placeholder="Search by Age"></td>
+				<td><input (focus)='changeIndex(4)' [value]='search'
+					(input)='sea=$event.target.value' placeholder="Search by Mobile"></td>
+				<td><input (focus)='changeIndex(5)' [value]='search'
+					(input)='sea=$event.target.value' placeholder="Search by Game"></td>
+			</tr>
+		
+		<tr *ngFor='let player of players | searchPipe: sea: index'>
+			<td>{{ player.playerId }}</td>
+			<td>{{ player.name }}</td>
+			<td>{{ player.age }}</td>
+			<td>{{ player.mobileNo }}</td>
+			<td>{{ player.game }}</td>
+		</tr>
+	</table>
+
+</body>
+</html>

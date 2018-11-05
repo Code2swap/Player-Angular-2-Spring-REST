@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: SHUBHAM_SK
+Build-Jdk: 10.0.2
+Implementation-Title: playerdemo
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.cg
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/playerdemo
+Created-By: Maven Integration for Eclipse
+
