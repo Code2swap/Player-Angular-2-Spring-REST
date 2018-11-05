@@ -9,7 +9,7 @@ export class SearchPipe implements PipeTransform {
     transform(players: any, search: any, index: number): any {
        if(search == null || search == undefined) return players;
        return players.filter(function(player :any) {
-           console.log(player);
+           //console.log(player);
            let val: any;
            switch(index) {
                case 1: val = player.playerId.includes(search); break;

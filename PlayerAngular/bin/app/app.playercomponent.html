@@ -3,38 +3,128 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<style>
+table {
+	table-layout: fixed;
+	/* width: 825px; */
+}
+
+input, button {
+	display: table-cell;
+	/* width: 100%; */
+}
+</style>
 </head>
 <body>
 
-	<table border="2">
-		<tr>
-			<th>ID</th>
-			<th>Name</th>
-			<th>Age</th>
-			<th>Mobile</th>
-			<th>Game</th>
-		</tr>
-		<tr>
-				<td><input (focus)='changeIndex(1)' [value]='search'
-					(input)='sea=$event.target.value' placeholder="Search by Id"></td>
-				<td><input (focus)='changeIndex(2)' [value]='search'
-					(input)='sea=$event.target.value' placeholder="Search by Name"></td>
-				<td><input (focus)='changeIndex(3)' [value]='search'
-					(input)='sea=$event.target.value' placeholder="Search by Age"></td>
-				<td><input (focus)='changeIndex(4)' [value]='search'
-					(input)='sea=$event.target.value' placeholder="Search by Mobile"></td>
-				<td><input (focus)='changeIndex(5)' [value]='search'
-					(input)='sea=$event.target.value' placeholder="Search by Game"></td>
+	<div>
+		<table border="2">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Mobile</th>
+				<th>Game</th>
+				<th colspan="2" rowspan="2">ACTION</th>
 			</tr>
-		
-		<tr *ngFor='let player of players | searchPipe: sea: index'>
-			<td>{{ player.playerId }}</td>
-			<td>{{ player.name }}</td>
-			<td>{{ player.age }}</td>
-			<td>{{ player.mobileNo }}</td>
-			<td>{{ player.game }}</td>
-		</tr>
-	</table>
+			<tr>
+				<td><input (focus)='changeIndex(1)'
+					(input)='search=$event.target.value' placeholder="Search by Id"></td>
+				<td><input (focus)='changeIndex(2)'
+					(input)='search=$event.target.value' placeholder="Search by Name"></td>
+				<td><input (focus)='changeIndex(3)'
+					(input)='search=$event.target.value' placeholder="Search by Age"></td>
+				<td><input (focus)='changeIndex(4)'
+					(input)='search=$event.target.value' placeholder="Search by Mobile"></td>
+				<td><input (focus)='changeIndex(5)'
+					(input)='search=$event.target.value' placeholder="Search by Game"></td>
+			</tr>
 
+			<tr *ngFor='let player of players | searchPipe: search: index'>
+				<td>{{ player.playerId }}</td>
+				<td>{{ player.name }}</td>
+				<td>{{ player.age }}</td>
+				<td>{{ player.mobileNo }}</td>
+				<td>{{ player.game }}</td>
+				<td><button (click)='showPlayer(player)'>Update</button></td>
+				<td><button (click)='deletePlayer(player.playerId)'>Delete</button></td>
+			</tr>
+		</table>
+	</div>
+	<div *ngIf='isUpdateClicked'>
+		<table>
+			<tr>
+				<td>Id</td>
+				<td><input [(ngModel)]='updatedPlayer.playerId' type="text"></td>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td><input [(ngModel)]='updatedPlayer.name' type="text"></td>
+			</tr>
+			<tr>
+				<td>Age</td>
+				<td><input [(ngModel)]='updatedPlayer.age' type="number"></td>
+			</tr>
+			<tr>
+				<td>Mobile No</td>
+				<td><input [(ngModel)]='updatedPlayer.mobileNo' type="text"></td>
+			</tr>
+			<tr>
+				<td>Game</td>
+				<td><input [(ngModel)]='updatedPlayer.game' type="text"></td>
+			</tr>
+		</table>
+		<button (click)='updatePlayer()'>Update</button>
+	</div>
+	<div>
+		<button (click)='addClicked()'>Add Player</button>
+		<div *ngIf='isAddClicked'>
+			<table>
+				<tr>
+					<td>Id</td>
+					<td><input [(ngModel)]='player.playerId' type="text"></td>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td><input [(ngModel)]='player.name' type="text"></td>
+				</tr>
+				<tr>
+					<td>Age</td>
+					<td><input [(ngModel)]='player.age' type="number"></td>
+				</tr>
+				<tr>
+					<td>Mobile No</td>
+					<td><input [(ngModel)]='player.mobileNo' type="text"></td>
+				</tr>
+				<tr>
+					<td>Game</td>
+					<td><input [(ngModel)]='player.game' type="text"></td>
+				</tr>
+			</table>
+			<button (click)='addPlayer()'>Add</button>
+		</div>
+	</div>
+	<div>
+		<button (click)='findClicked()'>Find Player</button>
+		<div *ngIf='isFindClicked'>
+			<input [(ngModel)]='playerId' type="text">&nbsp;
+			<button (click)='findPlayer()'>Find</button>
+		</div>
+	</div>
+	<!-- switch case here -->
+	<div [ngSwitch]="action">
+		<span *ngSwitchCase='"add"'>Player Added</span>
+		<span *ngSwitchCase='"update"'>Player Updated</span> 
+		<span *ngSwitchCase='"delete"'>Player Deleted</span>
+	</div>
+	<!-- <div *ngIf='action == "add"'>
+		<h3>Player Added Successfully</h3>
+	</div>
+	<div *ngIf='action == "update"'>
+		<h3>Player Updated Successfully</h3>
+	</div>
+	<div *ngIf='action == "delete"'>
+		<h3>Player Deleted Successfully</h3>
+	</div> -->
 </body>
 </html>
